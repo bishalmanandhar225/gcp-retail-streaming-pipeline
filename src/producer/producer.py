@@ -3,7 +3,7 @@ import json
 import time
 import random
 
-project_id = "YOUR_PROJECT_ID"
+project_id = "gcp-retail-streaming-pipeline"
 topic_id = "retail-events-topic"
 
 publisher = pubsub_v1.PublisherClient()
@@ -28,6 +28,7 @@ while True:
     data = json.dumps(event).encode("utf-8")
 
     future = publisher.publish(topic_path, data)
-    print(f"Published: {event}")
+    message_id = future.result()
+    print(f"Published message_id={message_id}: {event}")
 
     time.sleep(2)
