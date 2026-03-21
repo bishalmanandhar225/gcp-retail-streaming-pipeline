@@ -10,12 +10,12 @@ class ParseMessage(beam.DoFn):
 
 
 def run():
-    project_id = "gcp-retail-streaming-pipeline"
+    project_id = "gcp-retail-streaming-pipeline1"
     subscription = f"projects/{project_id}/subscriptions/retail-events-sub"
     table_spec = f"{project_id}:retail_streaming.retail_events"
 
     pipeline_options = PipelineOptions(
-        streaming=True,
+        streaming=True,s
         save_main_session=True
     )
 

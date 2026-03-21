@@ -1,84 +1,120 @@
-# GCP Real-Time Retail Streaming Pipeline
+# Retail Streaming Pipeline on GCP
 
 ## Overview
-This project demonstrates an end-to-end real-time retail streaming data pipeline built on Google Cloud Platform. A Python-based event producer generates simulated retail events and publishes them to Google Cloud Pub/Sub. An Apache Beam pipeline reads the streaming messages, parses JSON event records, and loads them into BigQuery for downstream analytics.
+
+This project demonstrates an **end-to-end GCP Data Engineering pipeline** that generates retail event data in real time, publishes it to **Google Cloud Pub/Sub**, processes it using **Apache Beam**, and loads it into **BigQuery** for analytics.
+
+The pipeline automates the flow of streaming retail events from message ingestion into a structured analytics table used for downstream querying and reporting.
+
+---
 
 ## Architecture
-Python Producer -> Pub/Sub Topic -> Pub/Sub Subscription -> Apache Beam Pipeline -> BigQuery
+### Pipeline Flow
+        Python Event Producer
+                ↓
+        Google Cloud Pub/Sub Topic
+                ↓
+        Google Cloud Pub/Sub Subscription
+                ↓
+        Apache Beam Streaming Pipeline
+                ↓
+        BigQuery Table (retail_events)
 
-## Tech Stack
-- Google Cloud Platform
-- Pub/Sub
-- Apache Beam
-- BigQuery
-- Python
+**Apache Beam processes the streaming events and loads them into BigQuery.**
 
-## Project Flow
-1. A Python producer generates retail event data such as product views, add-to-cart actions, and purchases.
-2. Events are published to a Pub/Sub topic.
-3. Apache Beam consumes messages from the Pub/Sub subscription.
-4. The pipeline parses JSON messages into structured records.
-5. Parsed records are written into a BigQuery table.
-6. BigQuery queries are used to analyze streamed retail data.
+---
 
-## BigQuery Schema
-The `retail_events` table contains the following fields:
+## Technologies Used
 
-- `event_id` - unique event identifier
-- `customer_id` - customer identifier
-- `product_id` - product identifier
-- `event_type` - type of event (`view`, `add_to_cart`, `purchase`)
-- `quantity` - quantity associated with the event
-- `price` - unit price of the product
-- `event_time` - event timestamp
+| Component | Technology |
+|---|---|
+| Cloud Platform | Google Cloud Platform |
+| Messaging | Google Cloud Pub/Sub |
+| Stream Processing | Apache Beam |
+| Data Warehouse | BigQuery |
+| Programming Language | Python |
+| Version Control | Git + GitHub |
+
+---
+
+## Data Design
+
+The pipeline writes streaming retail event records into a BigQuery analytics table.
+
+This table is used for event-level analysis and business insight generation.
+
+---
+
+## BigQuery Table
+### retail_events
+
+| Column | Description |
+|---|---|
+| event_id | Unique event identifier |
+| customer_id | Customer identifier |
+| product_id | Product identifier |
+| event_type | Event type such as view, add_to_cart, or purchase |
+| quantity | Quantity associated with the event |
+| price | Product price |
+| event_time | Event timestamp |
+
+---
+
+## Pipeline Execution Steps
+
+1. A Python producer generates simulated retail events.
+2. Events are published to a **Pub/Sub topic**.
+3. A **Pub/Sub subscription** makes the messages available for consumption.
+4. An **Apache Beam streaming pipeline** reads messages from the subscription.
+5. JSON event records are parsed into structured rows.
+6. Parsed records are written into the **BigQuery retail_events** table.
+7. BigQuery queries are executed to analyze the streaming data.
+
+---
+
+## Processing Strategy
+
+The current pipeline uses a **streaming ingestion approach**.
+
+During execution, events are continuously generated, published to Pub/Sub, consumed by Apache Beam, and appended into BigQuery.
+
+This approach was used to:
+
+- demonstrate real-time data ingestion on GCP
+- validate end-to-end streaming pipeline execution
+- support downstream analytical queries on live event data
+
+In production systems, this pattern can be extended with additional capabilities such as schema validation, dead-letter handling, windowing, enrichment, and deployment on managed Dataflow runners.
+
+---
 
 ## Analytics Queries
-The project includes analytical SQL queries to generate business insights from streamed event data.
 
-### Query 1: Count events by type
-This query shows the number of `view`, `add_to_cart`, and `purchase` events stored in BigQuery.
+The project includes analytical SQL queries to generate business insights from streamed retail data.
 
-### Query 2: Top 10 products by total events
-This query identifies the top products with the highest number of recorded retail events.
+Examples include:
 
-### Query 3: Total purchase revenue
-This query calculates total revenue from purchase events using `quantity * price`.
-
-## Business Summary
-A business summary query was added to produce a one-row KPI snapshot of the streaming dataset, including:
-
-- total events
-- total views
-- total add-to-cart events
-- total purchases
+- count of events by event type
+- top 10 products by total events
 - total purchase revenue
+- business summary KPI query
 
-## Proof of Execution
-The project was validated end-to-end with the following proof points:
-
-- Pub/Sub messages successfully published and pulled from subscription
-- Apache Beam pipeline successfully consumed streaming messages
-- BigQuery table successfully loaded streaming event data
-- Analytical queries successfully executed on stored event records
-
-Screenshots are included in the `screenshots/` folder:
-- `pubsub_messages.png`
-- `bigquery_table_rows.png`
-- `bigquery_schema.png`
+---
 
 ## Repository Structure
-```text
-gcp-retail-streaming-pipeline/
-├── docs/
-├── screenshots/
-├── sql/
-│   ├── analytics_queries.sql
-│   └── business_summary.sql
-├── src/
-│   ├── producer/
-│   │   └── producer.py
-│   └── dataflow_pipeline/
-│       └── stream_to_bigquery.py
-├── requirements.txt
-├── .gitignore
-└── README.md
+src/producer/ Python producer for retail event generation  
+src/dataflow_pipeline/ Apache Beam streaming pipeline  
+sql/ BigQuery analytical SQL queries  
+docs/ Project documentation  
+screenshots/ Pipeline execution screenshots  
+
+---
+
+## Result
+The pipeline successfully ingests, processes, and stores retail streaming event data in **BigQuery**, demonstrating a complete **real-time GCP data engineering workflow** using Pub/Sub, Apache Beam, and BigQuery.
+
+---
+
+## Author
+
+**Bishal Manandhar**

@@ -3,7 +3,7 @@ import json
 import time
 import random
 
-project_id = "gcp-retail-streaming-pipeline"
+project_id = "gcp-retail-streaming-pipeline1"
 topic_id = "retail-events-topic"
 
 publisher = pubsub_v1.PublisherClient()
