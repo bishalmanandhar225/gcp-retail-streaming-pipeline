@@ -114,7 +114,22 @@ screenshots/ Pipeline execution screenshots
 The pipeline successfully ingests, processes, and stores retail streaming event data in **BigQuery**, demonstrating a complete **real-time GCP data engineering workflow** using Pub/Sub, Apache Beam, and BigQuery.
 
 ---
+## Screenshots
+
+### Pub/Sub Messages
+![Pub/Sub Messages](screenshots/pubsub_messages.png)
+
+### BigQuery Schema
+![BigQuery Schema](screenshots/bigquery_schema.png)
+
+### BigQuery Table Rows
+![BigQuery Table Rows](screenshots/bigquery_table_rows.png)
+
+
+
+---
 
 ## Author
 
 **Bishal Manandhar**
+
